@@ -1,15 +1,35 @@
+#include "../include/headerA3.h"
+
 void printAll (struct employee * headLL) {
 
-    //prints the data of all employees currently in the LL
-    printf("%s", fname);
-    printf("%s", lname);
+    //declare var(s)
+    int curEmpCount = 0;
+    struct employee *curEmp = headLL;
 
-    printf("%d", &empId);
+    //while there are still employees
+    while (curEmp != NULL) {
 
-    for (int i=0; i<max; i++) {
+        curEmpCount++;
+        printf("Employee # %d: ", curEmpCount);
 
-        printf("%s", dependent[i]);
+        printf("\tEmployee id: %d", headLL->empId);
+        printf("\tFirst name: %s", headLL->fname);
+        printf("\tLast name: %s", headLL->lname);
+        printf("\tDependents [%d]: ", headLL-> numDependents);
 
-    } //end for
+        for (int i=0; i<(headLL->numDependents); i++) {
+
+            printf("%s", headLL->dependents[i]);
+
+            if (i < headLL->numDependents - 1)
+                printf(", ");
+
+        } //end for
+
+        printf("Currently, there are %d employees.", curEmpCount);
+
+        curEmp = curEmp->nextEmployee;
+
+    } //end while
 
 } //end printAll
