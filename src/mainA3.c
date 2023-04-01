@@ -3,7 +3,7 @@
 int main (int argc, char ** argv) {
 
     //declare var(s)
-    struct employee ** headLL;
+    struct employee ** headLL = NULL;
     int whichOne;
     int whichEmpId;
     char whichName [100];
@@ -12,7 +12,15 @@ int main (int argc, char ** argv) {
     int choice = -1;
     int someInt = 0;
 
+    FILE * file;
+
     strcpy(fileName,argv[1]);
+    file = fopen(fileName, "r");
+    if (!file) {
+        printf("Failed to open file called %s\n", fileName);
+        return 0;
+
+    } //end if
 
     //keep going until user wants to exit
     while (choice !=10) {
@@ -20,14 +28,15 @@ int main (int argc, char ** argv) {
         //get (valid) choice
         do {
 
-            printf("1. Add a new employee 2. Print data of all employees 3. Print data of the nth employee 4. Search for employee based on empId 5. Search for employee based on full name 6. Count the total number of employees 7. Sort the employees based on their empId 8. Remove the nth employee in the current LL 9. Remove all employees in the current LL 10. Exit");
+            printf("\n1. Add a new employee \n2. Print data of all employees \n3. Print data of the nth employee \n4. Search for employee based on empId \n5. Search for employee based on full name \n6. Count the total number of employees \n7. Sort the employees based on their empId \n8. Remove the nth employee in the current LL \n9. Remove all employees in the current LL \n10. Exit");
+            printf("\nChoose a menu option: ");
             scanf("%d", &choice);
 
         } while (choice > 10 || choice < 1);
 
         //headLL=createEmpDataFromFile(filePtr);
-        loadEmpData(headLL, fileName);
-/**
+//        loadEmpData(headLL, fileName);
+
         //do a different task based on the choice
         if (choice == 1) {
 
@@ -35,13 +44,15 @@ int main (int argc, char ** argv) {
 
         } else if (choice == 2) {
 
-            printAll (headLL);
+            printAll (*headLL);
 
         } else if (choice == 3) {
 
-            printOne (headLL, whichOne);
+            printf("Enter a position: ");
+            scanf("%d", &whichOne);
+            printOne (*headLL, whichOne);
 
-        } else if (choice == 4) {
+        } /**else if (choice == 4) {
 
             someInt = lookOnId (headLL, whichEmpId);
             printf("%d", someInt);
