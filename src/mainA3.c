@@ -3,7 +3,7 @@
 int main (int argc, char ** argv) {
 
     //declare var(s)
-    struct employee ** headLL = NULL;
+    struct employee * headLL = NULL;
     int whichOne;
     int whichEmpId;
     char whichName [100];
@@ -11,9 +11,10 @@ int main (int argc, char ** argv) {
 //    a3Emp * headLL;
     int choice = -1;
     int someInt = 0;
-
+    int empPosition = -1;
+/**
+    //file stuff
     FILE * file;
-
     strcpy(fileName,argv[1]);
     file = fopen(fileName, "r");
     if (!file) {
@@ -21,7 +22,7 @@ int main (int argc, char ** argv) {
         return 0;
 
     } //end if
-
+**/
     //keep going until user wants to exit
     while (choice !=10) {
 
@@ -34,28 +35,37 @@ int main (int argc, char ** argv) {
 
         } while (choice > 10 || choice < 1);
 
+
         //headLL=createEmpDataFromFile(filePtr);
-//        loadEmpData(headLL, fileName);
+        loadEmpData(&headLL, "proFile.txt");
 
         //do a different task based on the choice
         if (choice == 1) {
 
-            recruitEmployee (headLL);
+            recruitEmployee (&headLL);
 
-        } else if (choice == 2) {
+        }
 
-            printAll (*headLL);
+        else if (choice == 2) {
+            printf("hi");
+            printAll (headLL);
 
-        } else if (choice == 3) {
+        }/** else if (choice == 3) {
 
             printf("Enter a position: ");
             scanf("%d", &whichOne);
             printOne (*headLL, whichOne);
 
-        } /**else if (choice == 4) {
+        } else if (choice == 4) {
 
-            someInt = lookOnId (headLL, whichEmpId);
-            printf("%d", someInt);
+            empPosition = lookOnId (headLL, whichEmpId);
+
+            if (empPosition != -1) {
+
+                printf("%d", empPosition);
+                printOne(*headLL, empPosition);
+
+            } //end if
 
         } else if (choice == 5) {
 

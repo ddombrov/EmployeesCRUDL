@@ -8,7 +8,6 @@ void recruitEmployee (struct employee ** headLL) {
     char fname[MAX_LENGTH], lname[MAX_LENGTH], tempDependent[MAX_LENGTH];
     int empId = 0;
 
-
     //the user enters the first and last name
     printf("Enter a first name: ");
     scanf("%s", fname);
