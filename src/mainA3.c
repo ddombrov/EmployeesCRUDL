@@ -102,12 +102,16 @@ int main (int argc, char ** argv) {
 
         } else if (choice == 8) {
 
-            printf("\nCurrently there are %d employee(s)", countEmployees (headLL));
+            printf("\nCurrently there are %d employee(s)\n", countEmployees (headLL));
 
             if (countEmployees(headLL) > 0) {
 
-                printf("Which employee do you wish to fire – enter a value between 1 and %d: ", countEmployees(headLL));
-                scanf("%d", &whichOne);
+                //get a y or an n
+                do {
+                    printf("Which employee do you wish to fire – enter a value between 1 and %d: ", countEmployees(headLL));
+                    scanf("%d", &whichOne);
+                } while (whichOne < 1 || whichOne > countEmployees(headLL));
+
                 fireOne (&headLL, whichOne);
                 printf("Employee fired.");
                 printf("\nThere are %d employee(s).", countEmployees (headLL));
@@ -127,9 +131,12 @@ int main (int argc, char ** argv) {
                 scanf(" %c", &confirmation);
             } while (confirmation != 'y' && confirmation != 'n');
 
-                fireAll (&headLL);
-                printf("All fired. Linked list is now empty.");
-            
+                if (confirmation == 'y') {
+                    fireAll (&headLL);
+                    printf("\nAll fired. Linked list is now empty.");
+                } else
+                    printf("\nFiring all cancelled.");
+
             } else //have this because weird to ask "are you sure you want to fire when no one there to fire"
                 printf("You don't have employees to fire.");
 
