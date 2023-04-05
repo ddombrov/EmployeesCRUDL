@@ -9,6 +9,7 @@ int main (int argc, char ** argv) {
     char fileName [MAX_LENGTH];
     int choice = -1; 
     int empPosition = -1;
+    char confirmation = 'y';
 
     //file stuff
     FILE * file;
@@ -59,7 +60,7 @@ int main (int argc, char ** argv) {
             if (whichOne >= 0 && whichOne <= countEmployees(headLL))
                 printOne (headLL, whichOne);
 	    else
-	        printf("Not found");
+	        printf("\nNot found");
 
         } else if (choice == 4) {
 
@@ -72,24 +73,28 @@ int main (int argc, char ** argv) {
             if (empPosition != -1)
                 printOne(headLL, empPosition);
 	      else
-		    printf("Not found");
+		    printf("\nNot found");
 
         } else if (choice == 5) {
 
             //search for a specific employee by name
-	      printf("Enter a full name: ");
-            scanf("%s", whichName);
+	      printf("Enter the full name of the employee: ");
+            scanf("%*c");
+            //fflush (stdin);
+            //whichName[strlen(whichName)]='\0';
+            fgets(whichName, MAX_LENGTH * 2+1, stdin);
+            whichName[strlen(whichName)-1]='\0';
             whichOne = lookOnFullName (headLL, whichName);
 
             //display employee info if found
             if (whichOne != -1)
                 printOne(headLL, whichOne);
             else 
-		    printf("Not found");
+		    printf("\nNot found");
 
         } else if (choice == 6) {
 
-            printf("There are currently %d employee(s)", countEmployees (headLL));
+            printf("\nTotal number of employee(s): %d", countEmployees (headLL));
 
         } else if (choice == 7) {
 
@@ -97,12 +102,36 @@ int main (int argc, char ** argv) {
 
         } else if (choice == 8) {
 
-            scanf("%d", &whichOne);
-            fireOne (&headLL, whichOne);
+            printf("\nCurrently there are %d employee(s)", countEmployees (headLL));
+
+            if (countEmployees(headLL) > 0) {
+
+                printf("Which employee do you wish to fire – enter a value between 1 and %d: ", countEmployees(headLL));
+                scanf("%d", &whichOne);
+                fireOne (&headLL, whichOne);
+                printf("Employee fired.");
+                printf("\nThere are %d employee(s).", countEmployees (headLL));
+
+
+                
+            } else //have this because weird to ask "enter a value between 1 and 0"
+                printf("You don't have employees to fire.");
 
         } else if (choice == 9) {
 
-            fireAll (&headLL);
+            if (countEmployees(headLL) > 0) {
+
+            //get a y or an n
+            do {
+                printf("Are you sure you want to fire everyone: ");
+                scanf(" %c", &confirmation);
+            } while (confirmation != 'y' && confirmation != 'n');
+
+                fireAll (&headLL);
+                printf("All fired. Linked list is now empty.");
+            
+            } else //have this because weird to ask "are you sure you want to fire when no one there to fire"
+                printf("You don't have employees to fire.");
 
         } //end if
 

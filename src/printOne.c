@@ -6,6 +6,13 @@ void printOne (struct employee * headLL, int whichOne) {
     int curEmpCount = 0;
     struct employee *curEmp = headLL;
 
+    //check if list null
+    if (curEmp==NULL) {
+
+        printf("\nThe list is empty");
+        return;
+    }
+
     //while there are still employees
     while (curEmp != NULL) {
 
@@ -14,7 +21,6 @@ void printOne (struct employee * headLL, int whichOne) {
         //if it's the correct employee
         if(curEmpCount==whichOne){
 
-	      printf("\nEmployee # %d: ", curEmpCount);
             printf("\nEmployee id: %d", curEmp->empId);
             printf("\nFirst name: %s", curEmp->fname);
             printf("\nLast name: %s", curEmp->lname);
@@ -31,5 +37,6 @@ void printOne (struct employee * headLL, int whichOne) {
         curEmp = curEmp->nextEmployee;
 
     } //end while
+
 
 } //end printOne

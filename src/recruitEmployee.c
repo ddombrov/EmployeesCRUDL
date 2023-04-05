@@ -19,13 +19,15 @@ void recruitEmployee (struct employee ** headLL) {
     strcpy((curEmp)->lname, lname);
 
     //make room for dependents 2D array
-    (curEmp)->dependents=malloc(MAX_LENGTH*3);
+    (curEmp)->dependents=malloc(MAX_LENGTH);
 
     //until the user is done entering dependents
-    while (continueMore != 'n' && numDependents < 3) {
+    while (continueMore != 'n') {
+
+        (curEmp)->dependents=realloc((curEmp)->dependents, MAX_LENGTH*(numDependents+1));
 
         //the user enters the dependent names one by one
-        printf("Enter the name of dependent %d ", numDependents+1);
+        printf("\nEnter the name of dependent %d ", numDependents+1);
         scanf("%s", tempDependent);
 
         //make room for the size of the name
@@ -35,10 +37,8 @@ void recruitEmployee (struct employee ** headLL) {
 
         //get a y or an n
         do {
-            if (numDependents !=3) {
                 printf("Do you have any more dependents? ");
                 scanf(" %c", &continueMore);
-            }
         } while (continueMore != 'y' && continueMore != 'n');
 
     } //end while

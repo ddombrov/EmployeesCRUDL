@@ -2,31 +2,32 @@
 
 void fireOne (a3Emp ** headLL, int whichOne) {
 
+    //declare var(s)
     struct employee *curEmp = *headLL;
     struct employee *prevEmp = NULL;
 
-    int numEmployees = countEmployees(*headLL);
+    //check if list null
+    if (curEmp==NULL) {
 
-    if (whichOne < 1 || whichOne > numEmployees) {
-        printf("Invalid input. Please enter a number between 1 and %d.\n", numEmployees);
+        printf("\nThe list is empty");
         return;
     }
 
-    // Traverse the linked list to the nth employee
+    //go up until specific employee
     for (int i = 1; i < whichOne; i++) {
+
+        //move curEmp by 1
         prevEmp = curEmp;
         curEmp = curEmp->nextEmployee;
     }
 
-    // Update the previous employee's nextEmployee pointer
-    if (prevEmp == NULL) {
-        // The first employee is being fired
+    if (prevEmp == NULL)
         *headLL = curEmp->nextEmployee;
-    } else {
-        prevEmp->nextEmployee = curEmp->nextEmployee;
-    }
+    else
 
-    // Free the memory used by the fired employee
+        //make previous employee point to specific employee successor
+        prevEmp->nextEmployee = curEmp->nextEmployee;
+
     free(curEmp->dependents);
     free(curEmp);
 

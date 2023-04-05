@@ -7,18 +7,24 @@ int lookOnFullName (struct employee * headLL, char whichName [100]) {
     struct employee *curEmp = headLL;
     char *name = malloc(MAX_LENGTH+1+MAX_LENGTH+1);
 
+    //check if list null
+    if (curEmp==NULL) {
+
+        printf("\nThe list is empty");
+        return -1;
+    }
+
     //while there are still employees
     while (curEmp != NULL && curEmpCount<countEmployees(headLL)) {
 
-        //get the full name of the current employee
-        name[0]='\0';
-        strcpy(name, headLL->fname);
-        strcat(name, headLL->lname);
-
+        //put first and last name of employee into name and reset for each employee
         curEmpCount++;
-
-        //printf("name: %s, given: %s", name, whichName);
-
+        name[0]='\0';
+        strcat(name, curEmp->fname);
+        strcat(name, " ");
+        strcat(name, curEmp->lname);
+        name[strlen(name)]='\0';
+        
         //if the names match
         if(strcmp(name, whichName)==0)
 	      return curEmpCount;

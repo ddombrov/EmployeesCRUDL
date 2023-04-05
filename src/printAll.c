@@ -6,6 +6,13 @@ void printAll (struct employee * headLL) {
     int curEmpCount = 0;
     struct employee *curEmp = headLL;
 
+    //check if list null
+    if (curEmp==NULL) {
+
+        printf("\nThe list is empty");
+        return;
+    }
+
     //while there are still employees
     while (curEmp != NULL) {
 
@@ -18,7 +25,7 @@ void printAll (struct employee * headLL) {
 
         for (int i=0; i<(curEmp->numDependents); i++) {
             printf("%s", curEmp->dependents[i]);
-            if (i < headLL->numDependents - 1)
+            if (i < curEmp->numDependents - 1)
                 printf(", ");
         }
         
