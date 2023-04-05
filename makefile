@@ -23,4 +23,4 @@ recruitEmployee.o: src/recruitEmployee.c include/headerA3.h
 sortEmployeesId.o: src/sortEmployeesId.c include/headerA3.h
 	gcc -g -Wall -std=c99 -c src/sortEmployeesId.c
 clean:
-	rm.*o bin/proFile
+	rm *.o bin/proFile

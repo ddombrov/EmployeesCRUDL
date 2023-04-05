@@ -8,28 +8,25 @@ void printAll (struct employee * headLL) {
 
     //while there are still employees
     while (curEmp != NULL) {
-        printf(":)\n");
-        curEmpCount++;
-        printf("Employee # %d: ", curEmpCount);
 
-        printf("\tEmployee id: %d", curEmp->empId);
-        printf("\tFirst name: %s", curEmp->fname);
-        printf("\tLast name: %s", curEmp->lname);
-        printf("\tDependents [%d]: ", curEmp-> numDependents);
+        curEmpCount++;
+        printf("\nEmployee # %d: ", curEmpCount);
+        printf("\n\tEmployee id: %d", curEmp->empId);
+        printf("\n\tFirst name: %s", curEmp->fname);
+        printf("\n\tLast name: %s", curEmp->lname);
+        printf("\n\tDependents [%d]: ", curEmp-> numDependents);
 
         for (int i=0; i<(curEmp->numDependents); i++) {
-
             printf("%s", curEmp->dependents[i]);
-
             if (i < headLL->numDependents - 1)
                 printf(", ");
-
-        } //end for
-
-        printf("Currently, there are %d employees.", curEmpCount);
-
+        }
+        
+        //go to next employee
         curEmp = curEmp->nextEmployee;
 
     } //end while
+
+    printf("\nCurrently, there are %d employees.", curEmpCount);
 
 } //end printAll

@@ -7,58 +7,73 @@ void recruitEmployee (struct employee ** headLL) {
     char continueMore = 'y';
     char fname[MAX_LENGTH], lname[MAX_LENGTH], tempDependent[MAX_LENGTH];
     int empId = 0;
+    int check1=0, newEmpId=0;
+    struct employee *curEmp = malloc(sizeof(struct employee));
 
     //the user enters the first and last name
     printf("Enter a first name: ");
     scanf("%s", fname);
-    strcpy((*headLL)->fname, fname);
+    strcpy((curEmp)->fname, fname);
     printf("Enter a last name: ");
     scanf("%s", lname);
-    strcpy((*headLL)->lname, lname);
+    strcpy((curEmp)->lname, lname);
 
     //make room for dependents 2D array
-    (*headLL)->dependents=malloc(MAX_LENGTH*3);
+    (curEmp)->dependents=malloc(MAX_LENGTH*3);
 
     //until the user is done entering dependents
-    while (continueMore != 'n' || numDependents == 3) {
-
-        //get a y or an n
-        do {
-            printf("Add a dependent (y or n)?");
-            scanf("%c", &continueMore);
-        } while (continueMore != 'y' && continueMore != 'n');
+    while (continueMore != 'n' && numDependents < 3) {
 
         //the user enters the dependent names one by one
-        printf("Enter a dependent");
+        printf("Enter the name of dependent %d ", numDependents+1);
         scanf("%s", tempDependent);
 
         //make room for the size of the name
-        (*headLL)->dependents[numDependents]=malloc(sizeof(tempDependent));
-        strcpy((*headLL)->dependents[numDependents], tempDependent);
+        (curEmp)->dependents[numDependents]=malloc(sizeof(tempDependent));
+        strcpy((curEmp)->dependents[numDependents], tempDependent);
         numDependents++;
+
+        //get a y or an n
+        do {
+            if (numDependents !=3) {
+                printf("Do you have any more dependents? ");
+                scanf(" %c", &continueMore);
+            }
+        } while (continueMore != 'y' && continueMore != 'n');
 
     } //end while
 
-    printf("You have %d dependents", numDependents);
+    curEmp->numDependents=numDependents;
+    printf("You have %d dependent(s)", numDependents);
 
     //calculate empId
-    for (int i=0; i<sizeof(fname); i++)
+    for (int i=0; i<strlen(fname); i++)
         empId += fname[i];
+
     empId += strlen(lname);
 
-    //make sure empId is unique
-/**    for (int i=0; i<numEmp; i++) {
+    //make sure empId is unique (luckily we're allowed to assume less than 1000 employees)
+    do {
 
-        if (match)
-             empId += rand() % 999 + 1;
+        check1=1;
+        newEmpId=empId;
 
+        if (lookOnId(*headLL, newEmpId)!=-1)
+            newEmpId += rand() % 998 + 1;
 
-    } //end for
-**/
+        if (lookOnId(*headLL, newEmpId)!=-1) {
+            newEmpId += rand() % 998 + 1;
+            check1=0;
+        }
 
-    printf("Your computer-generated empID is %d", empId);
+    } while (check1 == 0);
 
-    //add their information to the end of the linked list passed as a parameter to this function
-    //nextEmployee=determine somehow
+    //put the unique empId into the employee's info
+    curEmp->empId=newEmpId;
+    printf("\nYour computer-generated empID is %d", curEmp->empId);
+
+    //integrate employee to start of list
+    curEmp->nextEmployee=*headLL;
+    *headLL=curEmp;
 
 } //end recruitEmployees

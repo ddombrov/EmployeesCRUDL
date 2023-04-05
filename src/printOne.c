@@ -11,30 +11,25 @@ void printOne (struct employee * headLL, int whichOne) {
 
         curEmpCount++;
 
-        if (curEmpCount==whichOne) {
+        //if it's the correct employee
+        if(curEmpCount==whichOne){
 
-            printf("Employee # %d: ", curEmpCount);
+	      printf("\nEmployee # %d: ", curEmpCount);
+            printf("\nEmployee id: %d", curEmp->empId);
+            printf("\nFirst name: %s", curEmp->fname);
+            printf("\nLast name: %s", curEmp->lname);
+            printf("\nDependents: ");
 
-            printf("Employee id: %d", headLL->empId);
-            printf("First name: %s", headLL->fname);
-            printf("Last name: %s", headLL->lname);
-            printf("Dependents: ");
-
-            for (int i=0; i<(headLL->numDependents); i++) {
-
-                printf("%s", headLL->dependents[i]);
-
+            for (int i=0; i<(curEmp->numDependents); i++) {
+                printf("%s", curEmp->dependents[i]);
                 if (i < headLL->numDependents - 1)
                     printf(", ");
+            }
 
-            } //end for
-
-        } //end if
-
-    //    printf("Currently, there are %d employees.", curEmpCount);
+	  } //end if
 
         curEmp = curEmp->nextEmployee;
 
     } //end while
 
-}
+} //end printOne
